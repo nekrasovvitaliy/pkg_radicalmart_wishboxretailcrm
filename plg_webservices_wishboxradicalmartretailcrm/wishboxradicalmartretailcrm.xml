@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="plugin" group="webservices" method="upgrade">
+    <name>plg_webservices_wishboxradicalmartretailcrm</name>
+    <author>Nekrasov Vitaliy</author>
+    <authorEmail>nekrasov_vitaliy@list.ru</authorEmail>
+    <creationDate>October 2026</creationDate>
+    <version>1.0.0</version>
+    <description>PLG_WEBSERVICES_WISHBOXRMRETAILCRM_XML_DESCRIPTION</description>
+    <namespace path="src">Joomla\Plugin\Webservices\WishboxRadicalMartRetailCrm</namespace>
+    <scriptfile>script.php</scriptfile>
+    <files>
+        <folder plugin="wishboxradicalmartretailcrm">services</folder>
+        <folder>src</folder>
+    </files>
+    <languages>
+        <language tag="en-GB">language/en-GB/plg_webservices_wishboxradicalmartretailcrm.ini</language>
+        <language tag="en-GB">language/en-GB/plg_webservices_wishboxradicalmartretailcrm.sys.ini</language>
+        <language tag="ru-RU">language/ru-RU/plg_webservices_wishboxradicalmartretailcrm.ini</language>
+        <language tag="ru-RU">language/ru-RU/plg_webservices_wishboxradicalmartretailcrm.sys.ini</language>
+    </languages>
+</extension>
+

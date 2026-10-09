@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="pkg_radicalmart_wishboxretailcrm" default="make" basedir=".">
+    <property name="package" value="pkg_radicalmart_wishboxretailcrm.zip"/>
+
+    <target name="make" description="Build the Joomla package.">
+        <delete quiet="yes">
+            <fileset dir=".">
+                <include name="${package}"/>
+            </fileset>
+        </delete>
+
+        <zip destfile="lib_wishboxradicalmartretailcrm.zip">
+            <fileset dir="./lib_wishboxradicalmartretailcrm">
+                <include name="language/**"/>
+                <include name="src/**"/>
+                <include name="lib_wishboxradicalmartretailcrm.xml"/>
+            </fileset>
+        </zip>
+
+        <zip destfile="com_wishboxradicalmartretailcrm.zip">
+            <fileset dir="./com_wishboxradicalmartretailcrm">
+                <include name="administrator/**"/>
+                <include name="api/**"/>
+                <include name="wishboxradicalmartretailcrm.xml"/>
+            </fileset>
+        </zip>
+
+        <zip destfile="plg_content_wishboxradicalmartretailcrm.zip">
+            <fileset dir="./plg_content_wishboxradicalmartretailcrm">
+                <include name="language/**"/>
+                <include name="services/**"/>
+                <include name="src/**"/>
+                <include name="script.php"/>
+                <include name="wishboxradicalmartretailcrm.xml"/>
+            </fileset>
+        </zip>
+
+        <zip destfile="plg_webservices_wishboxradicalmartretailcrm.zip">
+            <fileset dir="./plg_webservices_wishboxradicalmartretailcrm">
+                <include name="language/**"/>
+                <include name="services/**"/>
+                <include name="src/**"/>
+                <include name="script.php"/>
+                <include name="wishboxradicalmartretailcrm.xml"/>
+            </fileset>
+        </zip>
+
+        <zip destfile="${package}">
+            <fileset dir=".">
+                <include name="lib_wishboxradicalmartretailcrm.zip"/>
+                <include name="com_wishboxradicalmartretailcrm.zip"/>
+                <include name="plg_content_wishboxradicalmartretailcrm.zip"/>
+                <include name="plg_webservices_wishboxradicalmartretailcrm.zip"/>
+                <include name="language/**"/>
+                <include name="script.php"/>
+                <include name="pkg_radicalmart_wishboxretailcrm.xml"/>
+            </fileset>
+        </zip>
+
+        <delete quiet="yes">
+            <fileset dir=".">
+                <include name="lib_wishboxradicalmartretailcrm.zip"/>
+                <include name="com_wishboxradicalmartretailcrm.zip"/>
+                <include name="plg_content_wishboxradicalmartretailcrm.zip"/>
+                <include name="plg_webservices_wishboxradicalmartretailcrm.zip"/>
+            </fileset>
+        </delete>
+    </target>
+</project>
