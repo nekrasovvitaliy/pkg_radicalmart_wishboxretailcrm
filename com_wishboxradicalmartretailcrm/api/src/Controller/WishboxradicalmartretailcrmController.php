@@ -49,25 +49,6 @@ final class WishboxradicalmartretailcrmController extends ApiController
 	}
 
 	/**
-	 * Publish a Russian Post shipping order creation request.
-	 *
-	 * @return self
-	 *
-	 * @since        1.0.0
-	 *
-	 * @noinspection PhpUnused
-	 */
-	public function ordersCreateRussianPostShippingOrder(): self
-	{
-		$payload = [
-			'retailcrm_order_id' => $this->getPositiveRouteId('retailcrm_order_id'),
-		];
-		$this->dispatchOperation('onWishboxRadicalMartRetailCrmCreateRussianPostShippingOrder', $payload);
-
-		return $this;
-	}
-
-	/**
 	 * Read a positive integer route variable.
 	 *
 	 * @param   string  $name  Route variable name.

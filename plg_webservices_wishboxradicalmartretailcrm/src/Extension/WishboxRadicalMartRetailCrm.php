@@ -1,7 +1,7 @@
 <?php
 /**
  * @copyright   (c) 2013-2026 Nekrasov Vitaliy <nekrasov_vitaliy@list.ru>
- * @license         GNU General Public License version 2 or later;
+ * @license     GNU General Public License version 2 or later;
  */
 
 namespace Joomla\Plugin\Webservices\WishboxRadicalMartRetailCrm\Extension;
@@ -55,21 +55,30 @@ final class WishboxRadicalMartRetailCrm extends CMSPlugin implements SubscriberI
 				'v1/wishboxradicalmartretailcrm/updateshippingnumber',
 				'orders.updateTrackNumber',
 				[],
-				['component' => 'com_wishboxradicalmartretailcrm']
+				[
+					'component' => 'com_wishboxradicalmartretailcrm',
+					'format'    => ['application/json'],
+				]
 			),
 			new Route(
 				['PATCH'],
 				'v1/wishboxradicalmartretailcrm/updatetracknumber',
 				'orders.updateTrackNumber',
 				[],
-				['component' => 'com_wishboxradicalmartretailcrm']
+				[
+					'component' => 'com_wishboxradicalmartretailcrm',
+					'format'    => ['application/json'],
+				]
 			),
 			new Route(
 				['PATCH'],
 				'v1/wishboxradicalmartretailcrm/orders/:radicalmart_order_id/updatestatus',
 				'orders.updateStatus',
 				['radicalmart_order_id' => '(\\d+)'],
-				['component' => 'com_wishboxradicalmartretailcrm']
+				[
+					'component' => 'com_wishboxradicalmartretailcrm',
+					'format'    => ['application/json'],
+				]
 			),
 			new Route(
 				['POST'],

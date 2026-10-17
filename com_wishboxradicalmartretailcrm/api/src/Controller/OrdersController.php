@@ -1,18 +1,18 @@
 <?php
 /**
  * @copyright   (c) 2013-2026 Nekrasov Vitaliy <nekrasov_vitaliy@list.ru>
- * @license         GNU General Public License version 2 or later;
+ * @license     GNU General Public License version 2 or later;
  */
 
 namespace Joomla\Component\WishboxRadicalMartRetailCrm\Api\Controller;
 
-use Error;
-use Exception;
 use InvalidArgumentException;
+use Joomla\CMS\Application\ApiApplication;
 use Joomla\CMS\Log\Log;
-use Joomla\CMS\MVC\Controller\ApiController;
 use Joomla\Component\WishboxRadicalMartRetailCrm\Administrator\Extension\WishboxRadicalMartRetailCrmComponent;
 use JsonException;
+use Throwable;
+use WishboxRetailCrmLibrary\Controller\RetailCrmApiController;
 
 // phpcs:disable PSR1.Files.SideEffects
 defined('_JEXEC') or die;
@@ -25,22 +25,18 @@ defined('_JEXEC') or die;
  *
  * @noinspection PhpUnused
  */
-final class OrdersController extends ApiController
+final class OrdersController extends RetailCrmApiController
 {
 	/**
 	 * Publish a tracking number update request.
 	 *
-	 * @return self
-	 *
-	 * @throws Error
-	 * @throws Exception
-	 * @throws InvalidArgumentException
+	 * @return void
 	 *
 	 * @since        1.0.0
 	 *
 	 * @noinspection PhpUnused
 	 */
-	public function updateTrackNumber(): self
+	public function updateTrackNumber(): void
 	{
 		try
 		{
@@ -58,6 +54,7 @@ final class OrdersController extends ApiController
 				throw new InvalidArgumentException('track_number is required.', 400);
 			}
 
+			/** @var ApiApplication $app */
 			$app = $this->app;
 
 			/** @var WishboxRadicalMartRetailCrmComponent $wishboxRadicalMartRetailCrmComponent */
@@ -67,14 +64,33 @@ final class OrdersController extends ApiController
 
 			$orderService->setShippingDataValue($orderId, 'tracking_number', $trackingNumber);
 		}
-		catch (Exception|Error $e)
+		catch (InvalidArgumentException $invalidArgumentException)
 		{
-			$message = (string) $e;
-			Log::add($message, Log::ERROR, 'wishboxradicalmartretailcrm');
-			throw $e;
+			$this->setRetailCrmResponse(
+				[
+					'success'  => false,
+					'errorMsg' => $invalidArgumentException->getMessage(),
+				],
+				400
+			);
+
+			return;
+		}
+		catch (Throwable $throwable)
+		{
+			Log::add((string) $throwable, Log::ERROR, 'com_wishboxradicalmartretailcrm');
+			$this->setRetailCrmResponse(
+				[
+					'success'  => false,
+					'errorMsg' => 'Unable to update the tracking number.',
+				],
+				500
+			);
+
+			return;
 		}
 
-		return $this;
+		$this->setRetailCrmResponse(['success' => true], 200);
 	}
 
 	/**
@@ -90,8 +106,7 @@ final class OrdersController extends ApiController
 	{
 		try
 		{
-			$requestBody = $this->input->json
-				->getRaw();
+			$requestBody = $this->input->json->getRaw();
 
 			$payload = json_decode($requestBody, true, 512, JSON_THROW_ON_ERROR);
 		}
@@ -111,35 +126,28 @@ final class OrdersController extends ApiController
 	/**
 	 * Publish a RadicalMart order status update request.
 	 *
-	 * @param   int|null  $radicalmartOrderId  RadicalMart order identifier.
-	 *
-	 * @return self
-	 *
-	 * @throws Error
-	 * @throws Exception
-	 * @throws InvalidArgumentException
+	 * @return void
 	 *
 	 * @since        1.0.0
 	 *
 	 * @noinspection PhpUnused
 	 */
-	public function updateStatus(?int $radicalmartOrderId = null): self
+	public function updateStatus(): void
 	{
-		if ($radicalmartOrderId === null)
-		{
-			$radicalmartOrderId = $this->input->getInt('radicalmart_order_id');
-		}
-
-		if ($radicalmartOrderId <= 0)
-		{
-			throw new InvalidArgumentException('radicalmart_order_id must be greater than zero.', 400);
-		}
-
 		try
 		{
-			$payload                  = $this->getJsonPayload();
+			$radicalmartOrderId = $this->input->getInt('radicalmart_order_id');
+
+			if ($radicalmartOrderId <= 0)
+			{
+				throw new InvalidArgumentException('radicalmart_order_id must be greater than zero.', 400);
+			}
+
+			$payload = $this->getJsonPayload();
 			$retailCrmOrderStatusCode = trim((string) ($payload['retailcrmorderstatuscode'] ?? ''));
-			$app                      = $this->app;
+
+			/** @var ApiApplication $app */
+			$app = $this->app;
 
 			/** @var WishboxRadicalMartRetailCrmComponent $wishboxRadicalMartRetailCrmComponent */
 			$wishboxRadicalMartRetailCrmComponent = $app->bootComponent('com_wishboxradicalmartretailcrm');
@@ -149,13 +157,32 @@ final class OrdersController extends ApiController
 
 			$orderStatusSyncService->updateStatus($radicalmartOrderId, $retailCrmOrderStatusCode);
 		}
-		catch (Exception|Error $e)
+		catch (InvalidArgumentException $invalidArgumentException)
 		{
-			$message = (string) $e;
-			Log::add($message, Log::ERROR, 'radicalmartretailcrm');
-			throw $e;
+			$this->setRetailCrmResponse(
+				[
+					'success'  => false,
+					'errorMsg' => $invalidArgumentException->getMessage(),
+				],
+				400
+			);
+
+			return;
+		}
+		catch (Throwable $throwable)
+		{
+			Log::add((string) $throwable, Log::ERROR, 'com_wishboxradicalmartretailcrm');
+			$this->setRetailCrmResponse(
+				[
+					'success'  => false,
+					'errorMsg' => 'Unable to update the RadicalMart order status.',
+				],
+				500
+			);
+
+			return;
 		}
 
-		return $this;
+		$this->setRetailCrmResponse(['success' => true], 200);
 	}
 }
