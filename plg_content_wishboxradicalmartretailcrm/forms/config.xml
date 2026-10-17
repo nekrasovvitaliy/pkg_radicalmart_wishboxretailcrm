@@ -3,29 +3,16 @@
     <fieldset
             label="PLG_CONTENT_WISHBOXRADICALMARTRETAILCRM_FIELDSET_LABEL"
             name="wishboxradicalmartretailcrm"
+            tab="wishboxradicalmartretailcrm"
     >
-        <fields name="wishboxradicalmartretailcrm">
+        <fields name="plugins">
 
-            <field
-                    name="statuses"
-                    type="subform"
-                    label="PLG_CONTENT_WISHBOXRADICALMARTRETAILCRM_FIELD_STATUSES_LABEL"
-                    buttons="add,remove,move"
-                    multiple="true"
-                    min="0"
-                    layout="joomla.form.field.subform.repeatable-table"
-                    hiddenLabel="true"
-            >
-                <form>
-                    <fieldset>
-                        <field name="retailcrm_status_code"
-                               type="text"
-                               label="PLG_CONTENT_WISHBOXRADICALMARTRETAILCRM_FIELD_RETAILCRM_STATUS_CODE_LABEL"
-                               required="true"
-                        />
-                    </fieldset>
-                </form>
-            </field>
+
+            <field name="retailcrm_status_code"
+                   type="text"
+                   label="PLG_CONTENT_WISHBOXRADICALMARTRETAILCRM_FIELD_RETAILCRM_STATUS_CODE_LABEL"
+                   required="true"
+            />
 
         </fields>
     </fieldset>

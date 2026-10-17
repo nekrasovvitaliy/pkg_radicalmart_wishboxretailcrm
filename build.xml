@@ -27,6 +27,7 @@
 
         <zip destfile="plg_content_wishboxradicalmartretailcrm.zip">
             <fileset dir="./plg_content_wishboxradicalmartretailcrm">
+                <include name="forms/**"/>
                 <include name="language/**"/>
                 <include name="services/**"/>
                 <include name="src/**"/>

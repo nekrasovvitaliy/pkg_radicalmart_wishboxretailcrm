@@ -7,6 +7,10 @@
 namespace Joomla\Component\WishboxRadicalMartRetailCrm\Administrator\Extension;
 
 use Joomla\CMS\Extension\MVCComponent;
+use WishboxRadicalMartLibrary\Service\Order\OrderServiceAwareInterface;
+use WishboxRadicalMartLibrary\Service\Order\OrderServiceAwareTrait;
+use WishboxRadicalMartRetailCrmLibrary\Service\RetailCrmToRadicalMartOrderStatusSyncServiceAwareInterface;
+use WishboxRadicalMartRetailCrmLibrary\Service\RetailCrmToRadicalMartOrderStatusSyncServiceAwareTrait;
 use WishboxRadicalMartRetailCrmLibrary\Service\WishboxRadicalMartRetailCrmProductServiceAwareInterface;
 use WishboxRadicalMartRetailCrmLibrary\Service\WishboxRadicalMartRetailCrmProductServiceAwareTrait;
 
@@ -19,7 +23,12 @@ defined('_JEXEC') or die;
  *
  * @since 1.0.0
  */
-final class WishboxRadicalMartRetailCrmComponent extends MVCComponent implements WishboxRadicalMartRetailCrmProductServiceAwareInterface
+final class WishboxRadicalMartRetailCrmComponent extends MVCComponent implements
+	OrderServiceAwareInterface,
+	RetailCrmToRadicalMartOrderStatusSyncServiceAwareInterface,
+	WishboxRadicalMartRetailCrmProductServiceAwareInterface
 {
+	use OrderServiceAwareTrait;
+	use RetailCrmToRadicalMartOrderStatusSyncServiceAwareTrait;
 	use WishboxRadicalMartRetailCrmProductServiceAwareTrait;
 }

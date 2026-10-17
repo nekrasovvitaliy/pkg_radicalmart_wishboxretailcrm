@@ -22,33 +22,76 @@ use RetailCrm\Api\Model\Filter\Store\InventoryFilterType;
 use RetailCrm\Api\Model\Request\Store\InventoriesRequest;
 use RetailCrm\Api\Model\Response\Store\InventoriesResponse;
 use WishboxRadicalMartLibrary\Service\Product\ProductService;
+use WishboxRetailCrmLibrary\Service\RetailCrmOrderService;
 
 // phpcs:disable PSR1.Files.SideEffects
 defined('_JEXEC') or die;
 // phpcs:enable PSR1.Files.SideEffects
 
 /**
- * Synchronises product inventory from RetailCRM.
+ * Synchronizes product inventory from RetailCRM.
  *
  * @since 1.0.0
  */
 final class WishboxRadicalMartRetailCrmProductService
 {
+	private const int INVENTORY_PAGE_LIMIT = 100;
+
 	/**
 	 * Initialize the RadicalMart product service.
 	 *
-	 * @param   Client          $retailCrmClient            Shared RetailCRM API client.
-	 * @param   ProductService  $radicalMartProductService  RadicalMart product service.
+	 * @param   Client                 $retailCrmClient            Shared RetailCRM API client.
+	 * @param   ProductService         $radicalMartProductService  RadicalMart product service.
+	 * @param   RetailCrmOrderService  $retailCrmOrderService      RetailCRM order service.
 	 *
 	 * @return void
 	 *
 	 * @since 1.0.0
 	 */
 	public function __construct(
-		private readonly Client         $retailCrmClient,
-		private readonly ProductService $radicalMartProductService
+		private readonly Client                $retailCrmClient,
+		private readonly ProductService        $radicalMartProductService,
+		private readonly RetailCrmOrderService $retailCrmOrderService
 	)
 	{
+	}
+
+	/**
+	 * Update inventory for every product contained in a RetailCRM order.
+	 *
+	 * @param   integer  $retailCrmOrderId  RetailCRM order identifier.
+	 *
+	 * @return void
+	 *
+	 * @throws ApiExceptionInterface
+	 * @throws ClientExceptionInterface
+	 * @throws Exception
+	 *
+	 * @since 1.0.0
+	 */
+	public function updateQuantityFromOrder(int $retailCrmOrderId): void
+	{
+		$retailCrmOrder            = $this->retailCrmOrderService->getOrder($retailCrmOrderId);
+		$retailCrmOfferExternalIds = [];
+
+		foreach ($retailCrmOrder->items as $item)
+		{
+			$externalId = trim($item->offer?->externalId ?? '');
+
+			if ($externalId !== '')
+			{
+				$retailCrmOfferExternalIds[$externalId] = $externalId;
+			}
+		}
+
+		foreach (array_chunk(array_values($retailCrmOfferExternalIds), self::INVENTORY_PAGE_LIMIT) as $externalIds)
+		{
+			$this->updateQuantityByRetailCrmOfferExternalIds(
+				1,
+				self::INVENTORY_PAGE_LIMIT,
+				$externalIds
+			);
+		}
 	}
 
 	/**
@@ -67,6 +110,7 @@ final class WishboxRadicalMartRetailCrmProductService
 	 * @throws MissingCredentialsException
 	 * @throws MissingParameterException
 	 * @throws ValidationException
+	 * @throws Exception
 	 *
 	 * @since 1.0.0
 	 */

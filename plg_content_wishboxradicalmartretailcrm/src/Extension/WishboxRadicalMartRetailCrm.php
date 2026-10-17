@@ -60,12 +60,7 @@ final class WishboxRadicalMartRetailCrm extends CMSPlugin implements SubscriberI
 	{
 		$form = $event->getForm();
 
-		$app = $this->getApplication();
-
-		$formName = $form->getName();
-		$component = $app->getInput()->get('component');
-
-		if ($formName == 'com_config.component' && $component == 'com_wishboxradicalmartcdek')
+		if ($form->getName() === 'com_radicalmart.status')
 		{
 			$formFilePath = JPATH_SITE . '/plugins/' . $this->_type . '/' . $this->_name . '/forms/config.xml';
 

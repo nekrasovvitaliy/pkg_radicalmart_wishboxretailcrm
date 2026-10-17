@@ -53,21 +53,21 @@ final class WishboxRadicalMartRetailCrm extends CMSPlugin implements SubscriberI
 			new Route(
 				['PATCH'],
 				'v1/wishboxradicalmartretailcrm/updateshippingnumber',
-				'wishboxradicalmartretailcrm.updateShippingNumber',
+				'orders.updateTrackNumber',
 				[],
 				['component' => 'com_wishboxradicalmartretailcrm']
 			),
 			new Route(
 				['PATCH'],
 				'v1/wishboxradicalmartretailcrm/updatetracknumber',
-				'wishboxradicalmartretailcrm.updateTrackNumber',
+				'orders.updateTrackNumber',
 				[],
 				['component' => 'com_wishboxradicalmartretailcrm']
 			),
 			new Route(
 				['PATCH'],
-				'v1/wishboxradicalmartretailcrm/order/:radicalmart_order_id/updatestatus',
-				'wishboxradicalmartretailcrm.updateStatus',
+				'v1/wishboxradicalmartretailcrm/orders/:radicalmart_order_id/updatestatus',
+				'orders.updateStatus',
 				['radicalmart_order_id' => '(\\d+)'],
 				['component' => 'com_wishboxradicalmartretailcrm']
 			),
@@ -81,7 +81,7 @@ final class WishboxRadicalMartRetailCrm extends CMSPlugin implements SubscriberI
 			new Route(
 				['POST'],
 				'v1/wishboxradicalmartretailcrm/products/updatequantity',
-				'wishboxradicalmartretailcrm.productsUpdateQuantity',
+				'products.updateQuantity',
 				[],
 				['component' => 'com_wishboxradicalmartretailcrm']
 			),
@@ -89,13 +89,6 @@ final class WishboxRadicalMartRetailCrm extends CMSPlugin implements SubscriberI
 				['PATCH'],
 				'v1/wishboxradicalmartretailcrm/orders/:retailcrm_order_id/updatesumtowords',
 				'wishboxradicalmartretailcrm.ordersUpdateSumToWords',
-				['retailcrm_order_id' => '(\\d+)'],
-				['component' => 'com_wishboxradicalmartretailcrm']
-			),
-			new Route(
-				['PATCH'],
-				'v1/wishboxradicalmartretailcrm/orders/:retailcrm_order_id/createpaymentlink',
-				'wishboxradicalmartretailcrm.ordersCreatePaymentLink',
 				['retailcrm_order_id' => '(\\d+)'],
 				['component' => 'com_wishboxradicalmartretailcrm']
 			),
