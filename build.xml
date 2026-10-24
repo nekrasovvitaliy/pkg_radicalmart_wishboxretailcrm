@@ -46,12 +46,23 @@
             </fileset>
         </zip>
 
+        <zip destfile="plg_radicalmart_wishboxretailcrm.zip">
+            <fileset dir="./plg_radicalmart_wishboxretailcrm">
+                <include name="language/**"/>
+                <include name="services/**"/>
+                <include name="src/**"/>
+                <include name="script.php"/>
+                <include name="wishboxretailcrm.xml"/>
+            </fileset>
+        </zip>
+
         <zip destfile="${package}">
             <fileset dir=".">
                 <include name="lib_wishboxradicalmartretailcrm.zip"/>
                 <include name="com_wishboxradicalmartretailcrm.zip"/>
                 <include name="plg_content_wishboxradicalmartretailcrm.zip"/>
                 <include name="plg_webservices_wishboxradicalmartretailcrm.zip"/>
+                <include name="plg_radicalmart_wishboxretailcrm.zip"/>
                 <include name="language/**"/>
                 <include name="script.php"/>
                 <include name="pkg_radicalmart_wishboxretailcrm.xml"/>
@@ -64,6 +75,7 @@
                 <include name="com_wishboxradicalmartretailcrm.zip"/>
                 <include name="plg_content_wishboxradicalmartretailcrm.zip"/>
                 <include name="plg_webservices_wishboxradicalmartretailcrm.zip"/>
+                <include name="plg_radicalmart_wishboxretailcrm.zip"/>
             </fileset>
         </delete>
     </target>

@@ -18,5 +18,6 @@
 		<file type="component" id="com_wishboxradicalmartretailcrm">com_wishboxradicalmartretailcrm.zip</file>
 		<file type="plugin" group="content" id="wishboxradicalmartretailcrm">plg_content_wishboxradicalmartretailcrm.zip</file>
 		<file type="plugin" group="webservices" id="wishboxradicalmartretailcrm">plg_webservices_wishboxradicalmartretailcrm.zip</file>
+		<file type="plugin" group="radicalmart" id="wishboxretailcrm">plg_radicalmart_wishboxretailcrm.zip</file>
 	</files>
 </extension>

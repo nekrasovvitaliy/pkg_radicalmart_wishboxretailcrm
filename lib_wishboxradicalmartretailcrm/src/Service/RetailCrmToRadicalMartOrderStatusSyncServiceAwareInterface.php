@@ -11,14 +11,14 @@ defined('_JEXEC') or die;
 // phpcs:enable PSR1.Files.SideEffects
 
 /**
- * Defines access to the retailCRM-to-RadicalMart order status synchronisation service.
+ * Defines access to the retailCRM-to-RadicalMart order status synchronization service.
  *
  * @since 1.0.0
  */
 interface RetailCrmToRadicalMartOrderStatusSyncServiceAwareInterface
 {
 	/**
-	 * Get the order status synchronisation service.
+	 * Get the order status synchronization service.
 	 *
 	 * @return RetailCrmToRadicalMartOrderStatusSyncService
 	 *
@@ -27,7 +27,7 @@ interface RetailCrmToRadicalMartOrderStatusSyncServiceAwareInterface
 	public function getRetailCrmToRadicalMartOrderStatusSyncService(): RetailCrmToRadicalMartOrderStatusSyncService;
 
 	/**
-	 * Set the order status synchronisation service.
+	 * Set the order status synchronization service.
 	 *
 	 * @param   RetailCrmToRadicalMartOrderStatusSyncService  $orderStatusSyncService  Order status synchronisation service.
 	 *

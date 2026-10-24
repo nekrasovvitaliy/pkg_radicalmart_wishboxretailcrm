@@ -13,14 +13,14 @@ defined('_JEXEC') or die;
 // phpcs:enable PSR1.Files.SideEffects
 
 /**
- * Provides order status synchronisation service injection.
+ * Provides order status synchronization service injection.
  *
  * @since 1.0.0
  */
 trait RetailCrmToRadicalMartOrderStatusSyncServiceAwareTrait
 {
 	/**
-	 * Order status synchronisation service.
+	 * Order status synchronization service.
 	 *
 	 * @var RetailCrmToRadicalMartOrderStatusSyncService|null
 	 *
@@ -29,7 +29,7 @@ trait RetailCrmToRadicalMartOrderStatusSyncServiceAwareTrait
 	private ?RetailCrmToRadicalMartOrderStatusSyncService $orderStatusSyncService = null;
 
 	/**
-	 * Get the order status synchronisation service.
+	 * Get the order status synchronization service.
 	 *
 	 * @return RetailCrmToRadicalMartOrderStatusSyncService
 	 *
@@ -50,7 +50,7 @@ trait RetailCrmToRadicalMartOrderStatusSyncServiceAwareTrait
 	}
 
 	/**
-	 * Set the order status synchronisation service.
+	 * Set the order status synchronization service.
 	 *
 	 * @param   RetailCrmToRadicalMartOrderStatusSyncService  $orderStatusSyncService  Order status synchronisation service.
 	 *
